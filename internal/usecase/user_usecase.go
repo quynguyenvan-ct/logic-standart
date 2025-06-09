@@ -29,4 +29,3 @@ func (uc *UserUsecase) CreateUser(ctx context.Context, user *entity.User) error 
 	return nil
 }
 
-//sdad
