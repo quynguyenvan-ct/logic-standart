@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package kafka;
+
+option go_package = "internal/transport/kafka_pb";
+
+message KafkaEvent {
+  bytes TypeEvent = 1;
+  bytes Payload = 2;
+}
+
+message PublishRequest {
+  string topic = 1;
+  KafkaEvent event = 2;
+}
+
+message PublishResponse {
+  string status = 1;
+}
+
+service KafkaService {
+  rpc Publish(PublishRequest) returns (PublishResponse);
+}

@@ -10,11 +10,11 @@ import (
 )
 
 type Controller struct {
-    userUC *usecase.UserUsecase
+    userUC usecase.UserUC
 }
 
 // NewController nhận usecase như dependency injection
-func NewController(userUC *usecase.UserUsecase) *Controller {
+func NewController(userUC usecase.UserUC) *Controller {
     return &Controller{userUC: userUC}
 }
 

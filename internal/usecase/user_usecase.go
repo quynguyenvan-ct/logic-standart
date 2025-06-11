@@ -10,11 +10,16 @@ type UserRepository interface {
 	Create(ctx context.Context, user *entity.User) error
 }
 
+
+type UserUC interface {
+	CreateUser(ctx context.Context, user *entity.User) error
+}
+
 type UserUsecase struct {
 	userrepo UserRepository
 }
 
-func NewUserUsecase() *UserUsecase {
+func NewUserUsecase() UserUC {
     userRepo := repository.NewUserRepository()
     return &UserUsecase{
         userrepo: userRepo,

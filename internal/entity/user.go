@@ -5,8 +5,3 @@ type User struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
-
-type KafkaEvent struct {
-	TypeEvent string      `json:"TypeEvent"`
-	Payload   interface{} `json:"payload"`
-}

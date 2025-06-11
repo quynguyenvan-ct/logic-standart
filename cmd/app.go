@@ -14,8 +14,6 @@ func Execute() error {
     }
 
     rootCmd.AddCommand(service)
-    // rootCmd.AddCommand(workerKafka)      // (nếu có)
-    // rootCmd.AddCommand(workerRabbitmq)   // (nếu có)
 
     if err := rootCmd.Execute(); err != nil {
         os.Exit(1)
