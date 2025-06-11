@@ -2,13 +2,13 @@ package config
 
 import (
 	"fmt"
-	"os"
 )
 
 type Config struct {
     MySQL MySQLConfig
     Kafka KafkaConfig
     HTTP  HTTPConfig
+    GRPC GRPCConfig
 }
 
 type MySQLConfig struct {
@@ -28,6 +28,10 @@ type HTTPConfig struct {
     Port string
 }
 
+type GRPCConfig struct {
+    Port string
+}
+
 func LoadConfig() *Config {
     return &Config{
         MySQL: MySQLConfig{
@@ -44,13 +48,13 @@ func LoadConfig() *Config {
         HTTP: HTTPConfig{
             Port: getEnv("HTTP_PORT", "8080"),
         },
+        GRPC: GRPCConfig{
+            Port: getEnv("GRPC_PORT","9090"),
+        },
     }
 }
 
 func getEnv(key, defaultValue string) string {
-    if value, exists := os.LookupEnv(key); exists {
-        return value
-    }
     return defaultValue
 }
 

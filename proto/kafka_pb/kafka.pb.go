@@ -127,7 +127,7 @@ func (x *PublishRequest) GetEvent() *KafkaEvent {
 
 type PublishResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -162,9 +162,9 @@ func (*PublishResponse) Descriptor() ([]byte, []int) {
 	return file_proto_kafka_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *PublishResponse) GetStatus() string {
+func (x *PublishResponse) GetMessage() string {
 	if x != nil {
-		return x.Status
+		return x.Message
 	}
 	return ""
 }
@@ -180,11 +180,11 @@ const file_proto_kafka_proto_rawDesc = "" +
 	"\aPayload\x18\x02 \x01(\fR\aPayload\"O\n" +
 	"\x0ePublishRequest\x12\x14\n" +
 	"\x05topic\x18\x01 \x01(\tR\x05topic\x12'\n" +
-	"\x05event\x18\x02 \x01(\v2\x11.kafka.KafkaEventR\x05event\")\n" +
-	"\x0fPublishResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2H\n" +
+	"\x05event\x18\x02 \x01(\v2\x11.kafka.KafkaEventR\x05event\"+\n" +
+	"\x0fPublishResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2H\n" +
 	"\fKafkaService\x128\n" +
-	"\aPublish\x12\x15.kafka.PublishRequest\x1a\x16.kafka.PublishResponseB$Z\"golang/internal/transport/kafka_pbb\x06proto3"
+	"\aPublish\x12\x15.kafka.PublishRequest\x1a\x16.kafka.PublishResponseB\x10Z\x0eproto/kafka_pbb\x06proto3"
 
 var (
 	file_proto_kafka_proto_rawDescOnce sync.Once

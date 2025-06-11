@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kafka;
 
-option go_package = "internal/transport/kafka_pb";
+option go_package = "proto/kafka_pb";
 
 message KafkaEvent {
   bytes TypeEvent = 1;
@@ -15,7 +15,7 @@ message PublishRequest {
 }
 
 message PublishResponse {
-  string status = 1;
+  string message = 1;
 }
 
 service KafkaService {

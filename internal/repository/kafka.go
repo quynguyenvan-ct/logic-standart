@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"golang/config"
 	"golang/internal/entity"
 
@@ -39,5 +40,6 @@ func (p *kafkaProducer) Publish(ctx context.Context, topic string, event *entity
         Key:   []byte(event.TypeEvent),
         Value: event.Payload,
     }
+    fmt.Print(topic)
     return p.writer.WriteMessages(ctx, msg)
 }

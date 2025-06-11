@@ -7,12 +7,17 @@ import (
 	"golang/internal/controller"
 	"golang/internal/repository"
 	"golang/internal/usecase"
+	"net"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
+
+	"golang/proto/kafka_pb"
+
+	"google.golang.org/grpc"
 )
 
 // Command 'service'
@@ -47,8 +52,12 @@ func buildApp() *fx.App {
             repository.NewUserRepository,
             usecase.NewUserUsecase,
             controller.NewController,
+            repository.NewKafkaProducer,
+            usecase.NewKafkaUC,
+            controller.NewKafkaController,
+            controller.NewGRPCController,
         ),
-        fx.Invoke(registerHTTPServer),
+        fx.Invoke(registerHTTPServer,RegisterGRPCServer),
     )
 }
 
@@ -76,4 +85,36 @@ func registerHTTPServer(
             return nil
         },
     })
+}
+
+func RegisterGRPCServer(
+	lc fx.Lifecycle,
+	conf *config.Config,
+	handler *controller.GRPCController,
+) {
+	grpcServer := grpc.NewServer()
+	kafka_pb.RegisterKafkaServiceServer(grpcServer, handler)
+
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			go func() {
+				address := fmt.Sprintf(":%s", conf.GRPC.Port)
+				listener, err := net.Listen("tcp", address)
+				if err != nil {
+					fmt.Printf("failed to listen: %v\n", err)
+					return
+				}
+				fmt.Printf("gRPC server running at %s\n", address)
+				if err := grpcServer.Serve(listener); err != nil {
+					fmt.Printf("failed to start gRPC server: %v\n", err)
+				}
+			}()
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			fmt.Println("gRPC server shutting down...")
+			grpcServer.GracefulStop()
+			return nil
+		},
+	})
 }
