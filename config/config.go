@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 )
 
 type Config struct {
@@ -35,7 +36,7 @@ type GRPCConfig struct {
 func LoadConfig() *Config {
     return &Config{
         MySQL: MySQLConfig{
-            Host:     getEnv("MYSQL_HOST", "localhost"),
+            Host:     getEnv("MYSQL_HOST", "mysql"),
             Port:     getEnv("MYSQL_PORT", "3306"),
             User:     getEnv("MYSQL_USER", "root"),
             Password: getEnv("MYSQL_PASSWORD", "password"),
@@ -54,9 +55,14 @@ func LoadConfig() *Config {
     }
 }
 
+
 func getEnv(key, defaultValue string) string {
+    if value, exists := os.LookupEnv(key); exists {
+        return value
+    }
     return defaultValue
 }
+
 
 // DSN builds the MySQL Data Source Name string
 func (m MySQLConfig) DSN() string {
