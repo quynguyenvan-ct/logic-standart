@@ -23,7 +23,7 @@ jobs:
           password: +dcvHUqf_==89S!
 
       - name: Build Docker image
-        run: docker build . -t gohcm/logic-app:v2
+        run: docker build -f go.dockerfile -t gohcm/logic-app:v2
 
       - name: Push Docker image to Docker Hub
         run: docker push gohcmus/logic-app:v2
