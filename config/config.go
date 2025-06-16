@@ -66,6 +66,5 @@ func getEnv(key, defaultValue string) string {
 
 // DSN builds the MySQL Data Source Name string
 func (m MySQLConfig) DSN() string {
-    return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
-        m.User, m.Password, m.Host, m.Port, m.DBName)
+     return fmt.Sprintf("root:password@tcp(mysql:3306)/mysql")
 }
