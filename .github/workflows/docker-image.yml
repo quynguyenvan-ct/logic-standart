@@ -36,4 +36,4 @@ jobs:
           kubectl rollout status deployment logic-app
           kubectl rollout status deployment kafka
           kubectl rollout status deployment mysql
-          kybectl rollout status deployment zookeeper
+          kubectl rollout status deployment zookeeper
