@@ -29,7 +29,8 @@ jobs:
         run: docker push gohcmus/logic-app:v2
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f deployment.yaml
+        run: |
+          kubectl apply -f deployment.yaml
           kubectl apply -f kafka.yaml
           kubectl apply -f mysql.yaml
 
