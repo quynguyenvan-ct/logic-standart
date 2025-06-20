@@ -1,1 +1,1 @@
-# logic-standart
+# logic-standard
