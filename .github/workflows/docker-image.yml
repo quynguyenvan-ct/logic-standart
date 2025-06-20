@@ -32,4 +32,4 @@ jobs:
           kubectl apply -f deployment.yaml
 
       - name: Wait for rollout
-        run: kubectl rollout status deployment myapp
+        run: kubectl rollout status deployment logic-app
