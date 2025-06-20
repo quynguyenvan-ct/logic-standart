@@ -39,3 +39,4 @@ spec:
       port: 9090
       targetPort: 9090
   type: NodePort # Hoặc NodePort nếu bạn không dùng cloud
+  
